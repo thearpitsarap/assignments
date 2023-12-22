@@ -18,13 +18,11 @@ const path = require('path');
 const app = express();
 
 app.get('/files', function (req, res) {
-    fs.readdir("/home/ue/Tasks/Course/Assignments/assignments/week-2/02-nodejs/files", (err, files) => {
+    fs.readdir(path.join(__dirname, './files/'), (err, files) => {
     if (err) {
-        console.log(err);
         return res.status(500).json({ error: 'Failed to retrieve files' });
     }
-    console.log(files);
-    res.status(200).json({files});
+    res.json(files);
     });
 });
 
@@ -42,7 +40,5 @@ app.get('/file/:filename', function (req, res) {
 app.all('*', (req, res) => {
     res.status(404).send('Route not found');
 });
-
-app.listen("3000")
 
 module.exports = app;
