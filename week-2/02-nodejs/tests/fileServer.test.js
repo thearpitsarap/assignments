@@ -19,7 +19,7 @@ describe('API Endpoints', () => {
   });
 
   describe('GET /files', () => {
-    test('should return a list of files', async () => {
+    test.only('should return a list of files', async () => {
         const options = {
           method: 'GET',
           path: '/files'
@@ -102,7 +102,7 @@ describe('API Endpoints', () => {
 
 
 
-function sendRequest(options, requestBody) {
+function  sendRequest(options, requestBody) {
   return new Promise((resolve, reject) => {
     const req = http.request(
       {
@@ -128,6 +128,7 @@ function sendRequest(options, requestBody) {
     );
 
     req.on('error', (err) => {
+      console.log(err);
       reject(err);
     });
 

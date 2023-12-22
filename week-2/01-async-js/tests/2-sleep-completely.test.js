@@ -1,7 +1,7 @@
 const sleep = require("../hard (promises)/2-sleep-completely");
 
 describe("sleep function", () => {
-  test("resolves after 1 second", () => {
+  test.only("resolves after 1 second", () => {
     const start = Date.now();
     return expect(sleep(1000))
       .resolves.toBeUndefined() // Wait for 1 second
