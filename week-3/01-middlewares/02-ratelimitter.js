@@ -16,6 +16,10 @@ setInterval(() => {
     numberOfRequestsForUser = {};
 }, 1000)
 
+function blockUser(req,res,next){
+  
+}
+
 app.get('/user', function(req, res) {
   res.status(200).json({ name: 'john' });
 });
