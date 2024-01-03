@@ -35,19 +35,31 @@ router.get('/courses', async(req, res) => {
 
 router.post('/courses/:courseId', userMiddleware, async (req, res) => {
     // Implement course purchase logic
-    const course1 = await Course.findById(req.params.courseId);
-    console.log(course1);
-    user_courses.create({
-        user_id:req.headers.u_id,
-        courseId:course1
+    const courseId = req.param.courseId;
+    const user = req.headers.u_id;
+    await User.updateOne({
+        username:user
+    },
+    {
+        "$push":{
+            purchesedCourses:courseId
+        }
     })
-    res.send(course1)
+    res.json({"message":courseId})
 });
 
 router.get('/purchasedCourses', userMiddleware, async(req, res) => {
     // Implement fetching purchased courses logic
-    const userCourses = await user_courses.find({user_id:req.headers.u_id});
-    res.send(userCourses)
+    const user = await User.findOne({
+        username:req.headers.u_id
+    })
+
+    const courses = await Course.find({
+        _id:{
+            "$in": user.purchasedCourses
+        }
+    })
+    res.json({"courses":courses})
 });
 
 module.exports = router
