@@ -7,8 +7,11 @@ function userMiddleware(req, res, next) {
     const auth = req.headers.authorization;
     const token = auth.split(" ");
     try{
-        jwt.verify(token[1],jwtpassword);
-        next();
+        const decoded = jwt.verify(token[1],jwtpassword);
+        if(decoded.username){
+            req.username = decoded.username;
+            next();
+        }
     }
     catch(err){
         res.json({message:"Not Authorized"})

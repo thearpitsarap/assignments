@@ -6,7 +6,7 @@ const jwtpassword = "validtoken"
 const router = Router();
 
 // Admin Routes
-router.post('/signup', (req, res) => {
+router.post('/signup', async(req, res) => {
     // Implement admin signup logic
     const adminName = req.body.username;
     const adminPass = req.body.password;
