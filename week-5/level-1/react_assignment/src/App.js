@@ -18,10 +18,10 @@ function App() {
     };
 
     fetchData();
-  }, []);
+  }, [content]);
 
   const handleClick = async () => {
-    await addData(setState);
+    await addData();
   };
 
   return (
@@ -76,7 +76,7 @@ function App() {
   }
 }
 
-async function addData(setState) {
+async function addData() {
   const name = document.getElementById("name").value;
   const des = document.getElementById("des").value;
   const soc = document.getElementById("soc").value;
