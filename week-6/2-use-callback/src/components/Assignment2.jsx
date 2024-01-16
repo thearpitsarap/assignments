@@ -10,7 +10,6 @@ export function Assignment2() {
     // Your code starts here
     const showAlert = useCallback((event)=>{
         console.log("Logged");
-        setInputText(event.target.value);
         alert(inputText);
     },[])
     // Your code ends here
