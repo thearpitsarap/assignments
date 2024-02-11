@@ -13,7 +13,20 @@ const prisma = new PrismaClient();
  * }
  */
 export async function createUser(username: string, password: string, name: string) {
-    
+    try{
+        const newUser = await prisma.user.create({
+            data:{
+                username,
+                password,
+                name
+            }
+        })
+        console.log("newUser ",newUser);
+        return newUser;
+    }
+    catch(err){
+        console.log("Error while creating user ",err);
+    }
 }
 
 /*
@@ -25,5 +38,11 @@ export async function createUser(username: string, password: string, name: strin
  * }
  */
 export async function getUser(userId: number) {
-    
+    const user = prisma.user.findFirst({
+        where:{
+            id:userId
+        }
+    })
+    console.log(user);  
+    return user;
 }
