@@ -10,7 +10,14 @@ import { client } from "..";
  * }
  */
 export async function createTodo(userId: number, title: string, description: string) {
-    
+    try {
+        const createTodo = "INSERT INTO todos (number, title, description) VALUES ($1, $2, $3)";
+        const values = [userId, title, description];
+        const res = await client.query(createTodo, values);
+        console.log('Todos Created:', res); // Output insertion result
+    } catch (err) {
+        console.log('Error during the insertion:', err);
+    }
 }
 /*
  * mark done as true for this specific todo.
@@ -23,7 +30,14 @@ export async function createTodo(userId: number, title: string, description: str
  * }
  */
 export async function updateTodo(todoId: number) {
-
+    try{
+        const updateQuery = "UPDATE todos SET done=true WHERE id=$1";
+        const res = await client.query(updateQuery,[todoId]);
+        console.log("res",res);
+        return res;
+    }catch(err){
+        console.log("Error while updating todos ",err);
+    }
 }
 
 /*
@@ -37,5 +51,12 @@ export async function updateTodo(todoId: number) {
  * }]
  */
 export async function getTodos(userId: number) {
-
+    try{
+        const getTodos = "SELECT * FROM todos WHERE user_id=$1";
+        const res = await client.query(getTodos,[userId]);
+        return res.rows[0];
+    }
+    catch(err){
+        console.log("Error while fetching todos ",err)
+    }
 }

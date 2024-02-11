@@ -10,7 +10,14 @@ import { client } from "..";
  * }
  */
 export async function createUser(username: string, password: string, name: string) {
-    
+    try {
+        const insertQuery = "INSERT INTO users (username, password, name) VALUES ($1, $2, $3)";
+        const values = [username, password, name];
+        const res = await client.query(insertQuery, values);
+        console.log('Insertion success:', res); // Output insertion result
+    } catch (err) {
+        console.log('Error during the insertion:', err);
+    }
 }
 
 /*
@@ -21,6 +28,15 @@ export async function createUser(username: string, password: string, name: strin
  *   name: string
  * }
  */
+
 export async function getUser(userId: number) {
-    
+    try {
+        const getUserQuery = "SELECT * FROM users WHERE id=$1";
+        const res = await client.query(getUserQuery, [userId]);
+        console.log("res", res);
+        return res.rows[0];
+    }
+    catch (err) {
+        console.log("Error while getting the user ", err);
+    }
 }
